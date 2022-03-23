@@ -20,9 +20,9 @@ const Data = () => {
             }
         ).then(
             data => {
-                console.log(data[0]);
+                // console.log(data);
                 // passed fetched data in my created variable
-                // setExpenses(data);
+                setExpenses(data);
             }
         )
     }
@@ -40,19 +40,23 @@ const Data = () => {
             </h1>
 
             {/* mapped expenses which contains my all the fetched data so that it will returns all the value as my desire in proper way */}
-            {/* {expenses.map((val, ind) => {
-                console.log(ind);
-                return ( */}
+            {expenses.map((val) => {
+                // console.log(val);
+                return (
                     <Card
-                    // key={ind}
-                    // imgsrc={val.cover_image}
-                    // song={val.song}
-                    // artist={val.artists}
-                    // link={val.url}
+                        key={val.id}
+                        fName={val.first_name}
+                        lName={val.last_name}
+                        mail={val.email}
+                        gen={val.gender}
+                        job={val.job}
+                        city={val.city}
+                        lang={val.language}
+                        num={val.contact}
                     />
-                {/* )
+                )
             })
-            } */}
+            }
 
         </div>
     )

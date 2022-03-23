@@ -3,7 +3,7 @@ import "./card.css"
 
 
 //  created a single card so that it can be used as many time according to the data available in API
-const Card = () => {
+const Card = ({fName, lName, mail, gen, job, city, lang, num}) => {
     return (
         <div>
             <div className="cards">
@@ -11,21 +11,21 @@ const Card = () => {
                     {/* <div className="checkBox">
                         <input type="checkbox" className="card__category"/>
                     </div> */}
-                    <span className="card__category">First Name:</span>
+                    <span className="card__category">First Name: {fName} </span>
                     <br />
-                    <span className="card__category">Last Name:</span>
+                    <span className="card__category">Last Name: {lName} </span>
                     <br />
-                    <span className="card__category">E-Mail:</span>
+                    <span className="card__category">E-Mail: {mail} </span>
                     <br />
-                    <span className="card__category">Gender:</span>
+                    <span className="card__category">Gender: {gen} </span>
                     <br />
-                    <span className="card__category">Job TiTle:</span>
+                    <span className="card__category">Job TiTle: {job} </span>
                     <br />
-                    <span className="card__category">City:</span>
+                    <span className="card__category">City: {city} </span>
                     <br />
-                    <span className="card__category">Language:</span>
+                    <span className="card__category">Language: {lang} </span>
                     <br />
-                    <span className="card__category">Contact No.:</span>
+                    <span className="card__category">Contact No.: {num} </span>
                     {/* <h3 className="card__title">{props.artist}</h3> */}
                     <br />
                     <div className="btn">
