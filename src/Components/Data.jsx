@@ -12,24 +12,24 @@ const Data = () => {
 
 
 
-    // //  fetched data from API
-    // function fetchData() {
-    //     fetch("https://my.api.mockaroo.com/worker_data?key=5c27b260").then(
-    //         res => {
-    //             return res.json();
-    //         }
-    //     ).then(
-    //         data => {
-    //             // console.log(data);
-    //             // passed fetched data in my created variable
-    //             // setExpenses(data);
-    //         }
-    //     )
-    // }
+    //  fetched data from API
+    function fetchData() {
+        fetch("https://my.api.mockaroo.com/worker_data?key=5c27b260").then(
+            res => {
+                return res.json();
+            }
+        ).then(
+            data => {
+                console.log(data[0]);
+                // passed fetched data in my created variable
+                // setExpenses(data);
+            }
+        )
+    }
 
-    // useEffect(() => {
-    //     fetchData()
-    // }, []);
+    useEffect(() => {
+        fetchData()
+    }, []);
 
 
 
