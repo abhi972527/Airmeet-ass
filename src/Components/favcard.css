@@ -1,0 +1,10 @@
+
+.outerDiv1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    margin: 1%;
+    border-radius: 10px;
+    padding: 5px;
+}
+

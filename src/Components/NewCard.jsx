@@ -29,7 +29,7 @@ const NewCard = ({ id, name, num, city, img, gender, dlt, fav, select, check, to
             <div className="inrDiv">
                 {num}
             </div>
-            <div className="inrDiv">
+            {/* <div className="inrDiv">
                 <button onClick={() => fav(id)}>
                     add to fav
                 </button>
@@ -38,7 +38,7 @@ const NewCard = ({ id, name, num, city, img, gender, dlt, fav, select, check, to
                     del
                 </button>
 
-            </div>
+            </div> */}
         </div>
         // </div>
     )
