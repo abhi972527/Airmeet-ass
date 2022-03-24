@@ -1,62 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import Card from "./Card"
+// import Card from "./Card"
+import Loading from './Loading';
+import ToShow from './ToShow';
 import "./data.css"
 
 //  blank array as initial value of data
-let DUMMY_EXPENSE = [];
+
 
 
 const Data = () => {
     //  used dummy expenses as initial value, and created a variable which contains all the fetched data
-    const [expenses, setExpenses] = useState(DUMMY_EXPENSE);
+    const [expenses, setExpenses] = useState([]);
+    const [loading, setLoading] = useState(true);
 
+    // console.log(expenses);
 
 
     //  fetched data from API
-    function fetchData() {
-        fetch("https://my.api.mockaroo.com/worker_data?key=5c27b260").then(
-            res => {
-                return res.json();
-            }
-        ).then(
-            data => {
-                // console.log(data);
-                // passed fetched data in my created variable
-                setExpenses(data);
-            }
-        )
+    const fetchData = async () => {
+        try {
+            setLoading(false);
+            const res = await fetch("https://my.api.mockaroo.com/new_data?key=5c27b260");
+            const data = await res.json();
+            // console.log(data);
+            setExpenses(data);
+        } catch (e) {
+            console.log("My error is: ", e);
+        }
     }
 
     useEffect(() => {
         fetchData()
     }, []);
 
-
+    if (loading) {
+        console.log("Loading");
+        return (
+            // <div>
+            //     <h1>
+            //         Loading...
+            //     </h1>
+            // </div>
+            <Loading />
+        )
+    }
 
     return (
         <div>
-            <h1 className='heading_style' >
-                Coke Studio
-            </h1>
-
-            {/* mapped expenses which contains my all the fetched data so that it will returns all the value as my desire in proper way */}
-            {expenses.map((val) => {
-                // console.log(val);
-                return (
-                    <Card
-                        key={val.id}
-                        fName={val.first_name}
-                        lName={val.last_name}
-                        mail={val.email}
-                        gen={val.gender}
-                        job={val.job}
-                        city={val.city}
-                        lang={val.language}
-                        num={val.contact}
-                    />
-                )
-            })
-            }
+            {/* <ToShow expenses={expenses} /> */}
+            {/* {expenses.map((val) => {
+                console.log (val)
+            })} */}
 
         </div>
     )
