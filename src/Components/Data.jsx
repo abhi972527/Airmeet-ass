@@ -1,40 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import NewCard from './NewCard';
-// import Loading from './Loading';
-// import ToShow from './ToShow';
 import "./data.css"
 
-//  blank array as initial value of data
-
-
+const dummy = [];
 
 const Data = () => {
-    //  used dummy expenses as initial value, and created a variable which contains all the fetched data
-    const [expenses, setExpenses] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [expenses, setExpenses] = useState(dummy);
+    // const [loading, setLoading] = useState(true);
+    const [select, setSelect] = useState([]);
+    const [fav, setFav] = useState([]);
+    
 
-    // console.log(expenses);
 
 
-    //  fetched data from API
     const fetchData = async () => {
         try {
-            setLoading(false);
-            const res = await fetch("https://my.api.mockaroo.com/new_data?key=5c27b260");
+            // setLoading(false);
+            const res = await fetch("https://my.api.mockaroo.com/data?key=5c957cf0");
             const data = await res.json();
-            // console.log(data);
+            console.log(data);
             setExpenses(data);
         } catch (e) {
             console.log("My error is: ", e);
         }
     }
 
+
     useEffect(() => {
         fetchData()
     }, []);
 
-    if (loading === true) {
-        console.log("Loading");
+    useEffect(() => {
+        localStorage.setItem("list", JSON.stringify(fav))
+    }, [fav]);
+
+    if (expenses.length === 0) {
+        // console.log("Loading");
         return (
             <div>
                 <h1>
@@ -45,27 +46,92 @@ const Data = () => {
         )
     }
 
+    const dltOne = (id) => {
+        console.log("Dlt One", id);
+        const newData = expenses.filter((val) => {
+            return val.id !== id
+        })
+        setExpenses(newData);
+    }
+
+    const favOne = (id) => {
+        console.log("Fav One", id);
+        const favItem = expenses.find((val) => val.id === id)
+        setFav([...fav, favItem]);
+        const newData = expenses.filter((val) => {
+            return val.id !== id
+        })
+        setExpenses(newData);
+    }
+
+    const Select = (id) => {
+        // console.log("Selected", id);
+        setSelect([...select, id])
+        // console.log(select);
+    }
+
+    const dltSelected = () => {
+        const sDel = expenses.filter((val) => {
+            return !select.includes(val.id);
+        })
+        setExpenses(sDel);
+    }
+
+    const favSelected = () => {
+        const favData = expenses.filter((val) => {
+            return select.includes(val.id);
+        })
+        setFav([...fav, favData]);
+
+        const sDel = expenses.filter((val) => {
+            return !select.includes(val.id);
+        })
+        setExpenses(sDel);
+    }
+
+
+    const checkHandel = (id) => {        
+        expenses.map((val) => {
+            if (val.id === id) {
+                val.checked = val.checked == 0 ?  1 : 0
+            }
+        })
+    }
+   
+
     return (
         <div>
             <div className='heading_style'>
                 Users Database
             </div>
-           
+
             <div className="outerBox">
-                
                 {
                     expenses.map((val) => {
-                        return <NewCard key={val.id} name={val.first_name} num={val.contact} city={val.city} img={val.image} gender={val.gender} />
+                        return <NewCard
+                            key={val.id}
+                            name={val.first_name}
+                            num={val.contact}
+                            city={val.city}
+                            img={val.image}
+                            gender={val.gender}
+                            id={val.id}
+                            dlt={dltOne}
+                            fav={favOne}
+                            select={Select}
+                            check={checkHandel}
+                            toSelect = {val.checked}
+                        // sFav={favSelected}
+                        />
                     })
                 }
-                
             </div>
 
             <div className='footer'>
-                <button>
+                <button onClick={dltSelected}>
                     Delete selected
                 </button>
-                <button>
+                <button onClick={favSelected}>
                     Add to fav
                 </button>
             </div>
