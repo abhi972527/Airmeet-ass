@@ -5,17 +5,19 @@ import './navbar.css';
 const Navbar = () => {
     return (
         <div className="nav heading_style">
-            {/* <h1> */}
-                <Link to="/">
+            <Link to="/">
+                <div className="navInnerDiv">
                     HomePage
-                </Link>
-
+                </div>
+            </Link>
+            <div className="navInnerDiv">
                 Users Database
-
-                <Link to="/favData">
+            </div>
+            <Link to="/favData">
+                <div className="navInnerDiv">
                     Favourite list
-                </Link>
-            {/* </h1> */}
+                </div>
+            </Link>
         </div>
     )
 }
