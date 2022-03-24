@@ -31,4 +31,4 @@ const ToShow = ({expenses}) => {
 }
 
 
-export default ToShow;
+// export default ToShow;
